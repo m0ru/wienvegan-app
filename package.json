@@ -1,0 +1,27 @@
+{
+  "name": "wienvegan.at",
+  "version": "0.1.0",
+  "description": "Front-end to the wienvegan list of vegan(-friendly) restaurants and shops.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:m0ru/wienvegan-app.git"
+  },
+  "keywords": [
+    "vegan",
+    "restaurant",
+    "map"
+  ],
+  "author": "",
+  "license": "GNU GPLv3",
+  "bugs": {
+    "url": "https://github.com/m0ru/wienvegan-app/issues"
+  },
+  "homepage": "https://github.com/m0ru/wienvegan-app",
+  "dependencies": {
+    "leaflet": "^0.7.3"
+  }
+}
