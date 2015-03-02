@@ -15,8 +15,10 @@
         }
     
         #map {
-            height: 100vh;
-            width: 100vw;
+            position: fixed;
+            top: 0px; bottom: 0px; left: 0px; right: 0px;
+            /*height: 100vh;
+            width: 100vw;*/
         }
     </style>
 </head>
@@ -30,7 +32,7 @@
 
 <script type="text/javascript" charset="utf-8">
     // create a map in the "map" div, set the view to a given place and zoom
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map').setView([48.19803, 16.35466], 13);
 
     // add an OpenStreetMap tile layer
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -38,9 +40,10 @@
     }).addTo(map);
 
     // add a marker in the given location, attach some popup content to it and open the popup
-    L.marker([51.5, -0.09]).addTo(map)
-        .bindPopup('A pretty CSS3 popup. <br> Easily customizable.')
+    L.marker([48.19803, 16.35466]).addTo(map)
+        .bindPopup('<h1>Formosa Food</h1><br>Asian, International, Shop')
         .openPopup();
+    // Mon - Sat 11:00 ~ 21:00. Barnabitengasse 6, 1060 Vienna, Austria Tel: + 43 1 581 1112, + 43 699 1920 4294 email: shop@formosa.at
 </script>
     
     
