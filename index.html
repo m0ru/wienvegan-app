@@ -24,13 +24,15 @@
 </head>
 <body>
 
-<div id="map">
-    
-</div>
+    <!--<input type="text" name="location" id="" value="" />-->
 
-
+<div id="map"></div>
 
 <script type="text/javascript" charset="utf-8">
+
+
+    //----------------------------------------
+
     // create a map in the "map" div, set the view to a given place and zoom
     var map = L.map('map').setView([48.19803, 16.35466], 13);
 
@@ -44,6 +46,28 @@
         .bindPopup('<h1>Formosa Food</h1><br>Asian, International, Shop')
         .openPopup();
     // Mon - Sat 11:00 ~ 21:00. Barnabitengasse 6, 1060 Vienna, Austria Tel: + 43 1 581 1112, + 43 699 1920 4294 email: shop@formosa.at
+
+
+    //----------------------------------------
+
+    // TODO need to explicitely enable tracking for the site in chrome. not even an indicator in ff :|
+    if ("geolocation" in navigator) {
+        /* geolocation is available */
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup('Your current position.')
+                .openPopup();
+        });
+    } else {
+        /* geolocation IS NOT available */
+    }
+
+    //----------------------------------------
+
+
 </script>
     
     
