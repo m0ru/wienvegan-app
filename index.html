@@ -142,6 +142,37 @@
 
     //----------------------------------------
 
+    function httpGetJson(url, cb) {
+        var req = new XMLHttpRequest();
+        req.open("GET", url, true);
+        req.onreadystatechange = function (resp) {
+            var rs = JSON.parse(this.responseText);
+            cb(rs);
+        }
+        req.send(null);
+    }
+    httpGetJson("http://dev.onetrix.net:8000/wv/json", function(resp) {
+      var rs = resp.d;
+
+      for(var i = 0; i < rs.length; i++) { 
+        var r = rs[i];
+        var searchstr = "http://nominatim.openstreetmap.org/search/" +
+          r.street + " " + r.number + ", " +
+          r.city + ", " + r.country +
+          "?format=json";
+        searchstr = encodeURI(searchstr);
+        /*console.log(searchstr);*/
+        httpGetJson(searchstr, function(resp) {
+            var best = resp[0];
+            //TODO r: reference only contains last bound in loop
+            console.log(r.name, " ", best.lat, " ", best.lon);
+
+        });
+      }
+    });
+
+    //----------------------------------------
+
 
 </script>
     
