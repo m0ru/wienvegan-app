@@ -18,11 +18,13 @@ L.marker([48.19803, 16.35466]).addTo(map)
 
 //----------------------------------------
 
-var rDetails = document.getElementsByTagName('restaurant-detail')[0]
+var rDetails = document.getElementsByTagName('restaurant-details')[0]
 function openDetails() {
-/* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
-  removeClass(rDetails, 'right--collapsed')
-  addClass(rDetails, 'right--expanded')
+  if(rDetails) {
+    /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
+    removeClass(rDetails, 'right--collapsed')
+    addClass(rDetails, 'right--expanded')
+  }
 }
 
 // Utils ----------------------------------------
@@ -88,24 +90,27 @@ function httpGetJson(url, cb) {
     }
     req.send(null);
 }
-httpGetJson("http://dev.onetrix.net:8000/wv/json", function(resp) {
-  var rs = resp.d;
+function getRestaurants() {
+  httpGetJson("http://dev.onetrix.net:8000/wv/json", function(resp) {
+    var rs = resp.d;
 
-  for(var i = 0; i < rs.length; i++) {
-    var r = rs[i];
-    var searchstr = "http://nominatim.openstreetmap.org/search/" +
-      r.street + " " + r.number + ", " +
-      r.city + ", " + r.country +
-      "?format=json";
-    searchstr = encodeURI(searchstr);
-    /*console.log(searchstr);*/
-    httpGetJson(searchstr, function(resp) {
-        var best = resp[0];
-        //TODO r: reference only contains last bound in loop
-        console.log(r.name, " ", best.lat, " ", best.lon);
+    for(var i = 0; i < rs.length; i++) {
+      var r = rs[i];
+      var searchstr = "http://nominatim.openstreetmap.org/search/" +
+        r.street + " " + r.number + ", " +
+        r.city + ", " + r.country +
+        "?format=json";
+      searchstr = encodeURI(searchstr);
+      /*console.log(searchstr);*/
+      httpGetJson(searchstr, function(resp) {
+          var best = resp[0];
+          //TODO r: reference only contains last bound in loop
+          console.log(r.name, " ", best.lat, " ", best.lon);
 
-    });
-  }
-});
+      });
+    }
+  });
+}
+//getRestaurants()
 
 //----------------------------------------

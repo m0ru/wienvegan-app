@@ -1,4 +1,4 @@
-<restaurant-detail>
+<restaurant-details>
     <a id="detailview" class="anchor"></a>
     <h1 class="tophandle">Formosa Food</h1>
 
@@ -32,4 +32,4 @@
         <dd>Asian, International, Shop</dd>
 
     </dl>
-</restaurant-detail>
+</restaurant-details>
