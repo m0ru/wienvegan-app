@@ -8,174 +8,31 @@
     <script type="text/javascript" src="node_modules/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css"/>
 
-    <style type="text/css" media="all">
-        body {
-            margin: 0px;
-            padding: 0px;
-        }
-    
-        .fullscreen {
-            /*position: fixed;
-            top: 0px; bottom: 0px; left: 0px; right: 0px;*/
-            height: 100vh;
-            width: 100vw;
-        }
-        .fixed-top {
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            left: 40px;
-        }
-        #location {
-            z-index: 99;
-        }
-        .anchor{
-            display: block; 
-            position: relative; 
-            top: -150px; 
-            visibility: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="css/wv.css">
+    <script type="riot/tag" src="restaurant_detail.tag"></script>
 </head>
 <body>
 
-    <input type="text" 
-           name="location" 
-           id="location" 
+    <input type="text"
+           name="location"
+           id="location"
            value=""
            class="fixed-top"/>
 
     <div id="map" class="fullscreen"></div>
 
-    <section>
-        <a id="detailview" class="anchor"></a>
-        <h1 class="tophandle">Formosa Food</h1>
-
-        <dl>
-            <dt>Adress</dt> 
-            <dd>Barnabitengasse 6, 1060 Vienna</dd>
-
-            <dt>Tel</dt>     
-            <dd>+ 43 1 581 1112</dd>
-
-            <dt>Mobile</dt>  
-            <dd>+ 43 699 1920 4294</dd>
-
-            <dt>Email</dt>   
-            <dd>shop@formosa.at</dd>
-
-            <dt>Business Hours</dt>
-            <dd>
-                <dl>
-                    <dt>Mon</dt><dd>11:00 - 21:00</dd>
-                    <dt>Tue</dt><dd>11:00 - 21:01</dd>
-                    <dt>Wed</dt><dd>11:00 - 21:02</dd>
-                    <dt>Thu</dt><dd>11:00 - 21:03</dd>
-                    <dt>Fri</dt><dd>11:00 - 14:00</dd><dd>14:00 - 21:05</dd>
-                    <dt>Sat</dt><dd>11:00 - 21:06</dd>
-                    <dt>Sun</dt><dd>11:00 - 21:07</dd>
-                </dl>
-            </dd>
-
-            <dt>Cuisine/Tags:</dt> 
-            <dd>Asian, International, Shop</dd>
-
-        </dl>
-    </section>
+<restaurant-detail></restaurant-detail>
 
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" src="wv.js"></script>
 
-
-    //----------------------------------------
-
-    // create a map in the "map" div, set the view to a given place and zoom
-    var map = L.map('map').setView([48.19803, 16.35466], 13);
-
-    // add an OpenStreetMap tile layer
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    var popupText = '<a href="#detailview"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
-
-    // add a marker in the given location, attach some popup content to it and open the popup
-    L.marker([48.19803, 16.35466]).addTo(map)
-        .bindPopup(popupText)
-        .openPopup();
-    // Mon - Sat 11:00 ~ 21:00. Barnabitengasse 6, 1060 Vienna, Austria Tel: + 43 1 581 1112, + 43 699 1920 4294 email: shop@formosa.at
-
-    //----------------------------------------
-
-        /* 
-        data-format: GeoJSON
-        plugins: 
-            * static labels: https://github.com/Leaflet/Leaflet.label
-            * marker clustering: https://github.com/Leaflet/Leaflet.markercluster
-            * marker clustering: https://github.com/SINTEF-9012/PruneCluster
-            * searching: http://leafletjs.com/plugins.html#geocoding-address-lookup
-            * route-planing: https://github.com/Turistforeningen/leaflet-routing
-            * 2-finger-zoom: https://github.com/aratcliffe/Leaflet.twofingerzoom
-            * zoomslider: http://kartena.github.io/Leaflet.zoomslider/
-            * internationalisation: https://github.com/yohanboniface/Leaflet.i18n
-
-            * sidebar: https://github.com/turbo87/leaflet-sidebar/
-        */
-
-
-    //----------------------------------------
-
-    // TODO need to explicitely enable tracking for the site in chrome. not even an indicator in ff :|
-    if ("geolocation" in navigator) {
-        /* geolocation is available */
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
-
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup('Your current position.')
-                .openPopup();
-        });
-    } else {
-        /* geolocation IS NOT available */
-    }
-
-    //----------------------------------------
-
-    function httpGetJson(url, cb) {
-        var req = new XMLHttpRequest();
-        req.open("GET", url, true);
-        req.onreadystatechange = function (resp) {
-            var rs = JSON.parse(this.responseText);
-            cb(rs);
-        }
-        req.send(null);
-    }
-    httpGetJson("http://dev.onetrix.net:8000/wv/json", function(resp) {
-      var rs = resp.d;
-
-      for(var i = 0; i < rs.length; i++) { 
-        var r = rs[i];
-        var searchstr = "http://nominatim.openstreetmap.org/search/" +
-          r.street + " " + r.number + ", " +
-          r.city + ", " + r.country +
-          "?format=json";
-        searchstr = encodeURI(searchstr);
-        /*console.log(searchstr);*/
-        httpGetJson(searchstr, function(resp) {
-            var best = resp[0];
-            //TODO r: reference only contains last bound in loop
-            console.log(r.name, " ", best.lat, " ", best.lon);
-
-        });
-      }
-    });
-
-    //----------------------------------------
-
-
+<script src="node_modules/riot/riot+compiler.js"></script>
+<script>
+    // Get those riot components going
+    riot.mount('*')
 </script>
-    
-    
+
+
+
 </body>
 </html>

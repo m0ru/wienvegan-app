@@ -1,0 +1,26 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.fullscreen {
+    /*position: fixed;
+    top: 0px; bottom: 0px; left: 0px; right: 0px;*/
+    height: 100vh;
+    width: 100vw;
+}
+.fixed-top {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 40px;
+}
+#location {
+    z-index: 99;
+}
+.anchor{
+    display: block;
+    position: relative;
+    top: -150px;
+    visibility: hidden;
+}
