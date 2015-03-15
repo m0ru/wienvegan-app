@@ -22,8 +22,9 @@
   },
   "homepage": "https://github.com/m0ru/wienvegan-app",
   "dependencies": {
+    "bootsketch": "Yago/Bootsketch",
     "bootstrap": "^3.3.2",
     "leaflet": "^0.7.3",
-    "bootsketch": "Yago/Bootsketch"
+    "riot": "^2.0.13"
   }
 }
