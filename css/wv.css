@@ -29,11 +29,11 @@ body {
     left: 40px;
 }
 #location {
-    z-index: 99;
+    z-index: 9;
 }
 .anchor{
     display: block;
     position: relative;
     top: -150px;
     visibility: hidden;
-}.flex-row {    /* flexbox setup */    display: -webkit-flex;    -webkit-flex-direction: row;    display: flex;    flex-direction: row;    align-items: stretch;    justify-content: stretch;    align-content: stretch;}.flex-row__elem {    -webkit-flex: 1 1 auto;    flex: 1 1 auto;    min-width: 0;    min-height: auto;    align-self: auto;    /* To make the transition work nicely.     (Transitions to/from "width:auto" are     buggy in Gecko and Webkit, at least.     See http://bugzil.la/731886 for more info.) */    width: 30px;    -webkit-transition: width 0.7s ease-out;    transition: width 0.7s ease-out; }
+}.flex-row {    /* flexbox setup */    display: -webkit-flex;    -webkit-flex-direction: row;    display: flex;    flex-flow: row nowrap;    /*flex-direction: row;*/    align-items: stretch;    /*justify-content: stretch;    align-content: stretch;*/}.flex-row__elem {    -webkit-flex: 1 1 auto;    flex: 1 1 auto;    min-width: 0;    min-height: auto;    align-self: auto;    /* To make the transition work nicely.     (Transitions to/from "width:auto" are     buggy in Gecko and Webkit, at least.     See http://bugzil.la/731886 for more info.)    width: 30px;    -webkit-transition: width 0.7s ease-out;    transition: width 0.7s ease-out;   .flex > div:hover { width: 200px; }    */    -webkit-transition: width 0.7s ease-out;    transition: width 0.7s ease-out; }.right--collapsed {    /*flex: 0 0 0px;*/    /*min-width: 0px;*/    display: none;}.right--expanded {    flex-basis: 40em;    /*min-width: 40em;*/    z-index: 12;}

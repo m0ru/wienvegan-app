@@ -8,13 +8,39 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var popupText = '<a href="#detailview"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
+var popupText = '<a onclick="openDetails()" href="javascript:void()"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
 
 // add a marker in the given location, attach some popup content to it and open the popup
 L.marker([48.19803, 16.35466]).addTo(map)
     .bindPopup(popupText)
     .openPopup();
 // Mon - Sat 11:00 ~ 21:00. Barnabitengasse 6, 1060 Vienna, Austria Tel: + 43 1 581 1112, + 43 699 1920 4294 email: shop@formosa.at
+
+//----------------------------------------
+
+var rDetails = document.getElementsByTagName('restaurant-detail')[0]
+function openDetails() {
+/* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
+  removeClass(rDetails, 'right--collapsed')
+  addClass(rDetails, 'right--expanded')
+}
+
+// Utils ----------------------------------------
+
+function hasClass(ele,cls) {
+  return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+
+function addClass(ele,cls) {
+  if (!hasClass(ele,cls)) ele.className += " "+cls;
+}
+
+function removeClass(ele,cls) {
+  if (hasClass(ele,cls)) {
+    var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+    ele.className=ele.className.replace(reg,' ');
+  }
+}
 
 //----------------------------------------
 
