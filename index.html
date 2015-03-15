@@ -8,31 +8,31 @@
     <script type="text/javascript" src="node_modules/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css"/>
 
+  <!--  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.css">-->
+
     <link rel="stylesheet" href="css/wv.css">
     <script type="riot/tag" src="restaurant_detail.tag"></script>
 </head>
-<body>
+<body class="flex-row fullscreen">
+    <section class="flex-row__elem">
+        <input type="text"
+               name="location"
+               id="location"
+               value=""
+               class="fixed-top"/>
 
-    <input type="text"
-           name="location"
-           id="location"
-           value=""
-           class="fixed-top"/>
+        <div id="map" class="fill-parent"></div>
+    </section>
 
-    <div id="map" class="fullscreen"></div>
+    <restaurant-detail class="flex-row__elem"></restaurant-detail>
 
-<restaurant-detail></restaurant-detail>
+    <script type="text/javascript" src="wv.js"></script>
 
-
-<script type="text/javascript" src="wv.js"></script>
-
-<script src="node_modules/riot/riot+compiler.js"></script>
-<script>
-    // Get those riot components going
-    riot.mount('*')
-</script>
-
-
-
+    <script src="node_modules/riot/riot+compiler.js"></script>
+    <script>
+        // Get those riot components going
+        riot.mount('*')
+    </script>
 </body>
 </html>
