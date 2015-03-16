@@ -18,6 +18,7 @@ L.marker([48.19803, 16.35466]).addTo(map)
 
 //----------------------------------------
 
+// TODO http://tympanus.net/Development/SidebarTransitions/
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 function openDetails() {
   if(rDetails) {
@@ -27,7 +28,6 @@ function openDetails() {
   }
 }
 
-// Utils ----------------------------------------
 
 //----------------------------------------
 
