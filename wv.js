@@ -8,7 +8,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var popupText = '<a onclick="openDetails()" href="javascript:void()"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
+var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
 
 // add a marker in the given location, attach some popup content to it and open the popup
 L.marker([48.19803, 16.35466]).addTo(map)
@@ -20,10 +20,12 @@ L.marker([48.19803, 16.35466]).addTo(map)
 
 // TODO http://tympanus.net/Development/SidebarTransitions/
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
+var glass = document.getElementById('offcanvas-glass')
 function openDetails() {
-  if(rDetails) {
+  if(rDetails && glass) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
 
+    glass.classList.remove('glass--hidden');
     rDetails.classList.remove('offscreenright--off');
     rDetails.classList.add('offscreenright--on');
     /*rDetails.classList.remove('right--collapsed')
@@ -31,6 +33,13 @@ function openDetails() {
   }
 }
 
+function closeDetails() {
+  if(rDetails && glass) {
+    glass.classList.add('glass--hidden');
+    rDetails.classList.add('offscreenright--off');
+    rDetails.classList.remove('offscreenright--on');
+  }
+}
 
 //----------------------------------------
 
