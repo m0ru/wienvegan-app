@@ -29,16 +29,24 @@
 
     <restaurant-details
         id="restaurant-details"
+        restaurant="{visibleRestaurant}"
         class="offscreenright
                offscreenright--off">
     </restaurant-details>
 
+    <script src="node_modules/riot/riot+compiler.js"></script>
+
+    <script type="text/javascript" src="dummy-data.js"></script>
+    <script type="text/javascript" src="restaurant-store.js"></script>
     <script type="text/javascript" src="wv.js"></script>
 
-    <script src="node_modules/riot/riot+compiler.js"></script>
     <script>
         // Get those riot components going
-        riot.mount('*')
+        /*var tags = riot.mount('*')
+        console.log('tags ', JSON.stringify(tags))*/
+
+        var tags = riot.mount('restaurant-details')
+        console.log('our tag ', JSON.stringify(tags))
     </script>
 </body>
 </html>

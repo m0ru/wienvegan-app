@@ -19,25 +19,30 @@ L.marker([48.19803, 16.35466]).addTo(map)
 //----------------------------------------
 
 // TODO http://tympanus.net/Development/SidebarTransitions/
+
+var visibleRestaurant = {}
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 var glass = document.getElementById('offcanvas-glass')
 function openDetails() {
   if(rDetails && glass) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
 
-    glass.classList.remove('glass--hidden');
-    rDetails.classList.remove('offscreenright--off');
-    rDetails.classList.add('offscreenright--on');
-    /*rDetails.classList.remove('right--collapsed')
-    rDetails.classList.add('right--expand')*/
+    glass.classList.remove('glass--hidden')
+    rDetails.classList.remove('offscreenright--off')
+    rDetails.classList.add('offscreenright--on')
+
+    visibleRestaurant = {'name': 'Formosa Food'}
+    riot.update() //TODO hacky (need to limit the update scope)
+    // without the update the options aren't passed again
   }
 }
 
 function closeDetails() {
   if(rDetails && glass) {
-    glass.classList.add('glass--hidden');
-    rDetails.classList.add('offscreenright--off');
-    rDetails.classList.remove('offscreenright--on');
+    glass.classList.add('glass--hidden')
+    rDetails.classList.add('offscreenright--off')
+    rDetails.classList.remove('offscreenright--on')
+    visibleRestaurant = {}
   }
 }
 
@@ -77,6 +82,13 @@ if ("geolocation" in navigator) {
 }
 
 //----------------------------------------
+
+var rStore = new RestaurantStore()
+
+//TODO remove me after server-connection is implemented
+if(mock_data && mock_data.restaurants) {
+    rStore.setRestaurants(mock_data.restaurants)
+}
 
 function httpGetJson(url, cb) {
     var req = new XMLHttpRequest();
