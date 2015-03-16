@@ -38,4 +38,87 @@ body {
     position: relative;
     top: -150px;
     visibility: hidden;
-}.flex-row {    /* flexbox setup */    display: -webkit-flex;    -webkit-flex-direction: row;    display: flex;    flex-flow: row nowrap;    /*flex-direction: row;*/    align-items: stretch;    /*justify-content: stretch;    align-content: stretch;*/}.flex-row__elem {    -webkit-flex: 1 1 auto;    flex: 1 1 auto;    min-width: 0;    min-height: auto;    align-self: auto;    /* To make the transition work nicely.     (Transitions to/from "width:auto" are     buggy in Gecko and Webkit, at least.     See http://bugzil.la/731886 for more info.)    width: 30px;    -webkit-transition: width 0.7s ease-out;    transition: width 0.7s ease-out;   .flex > div:hover { width: 200px; }    */    -webkit-transition: width 0.7s ease-out;    transition: width 0.7s ease-out; }/*TODO scss -> extends fullscreen */.glass {    position: fixed;    top: 0px; bottom: 0px; left: 0px; right: 0px;    background-color: rgba(0,0,0,0.5);    transition: background-color 0.7s ease-out;}.glass--hidden {  background-color: rgba(0,0,0,0.0);  transition-timing-function: ease-in;  pointer-events: none;}/*TODO scss -> extends fullscreen */.offscreenright {  transition: transform 0.7s ease;  position: fixed;  top: 0px;  bottom: 0px;  left: 30vw; /* what's still visible of the bg */  right: 0vw;}.offscreenright--off {  transform: translateX(100%);}.offscreenright--on {  transform: translateX(0%);}.flex-right--collapsed {    /*flex: 0 0 0px;*/    /*min-width: 0px;*/    display: none;}.flex-right--expanded {    flex-basis: 40em;    /*min-width: 40em;*/    z-index: 12;}/* TODO oocss me */#offcanvas-glass { z-index: 9999999; }#restaurant-details {  overflow-y: scroll;  background-color: white;  z-index: 999999999;}
+}
+
+.flex-row {
+    /* flexbox setup */
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+
+    display: flex;
+    flex-flow: row nowrap;
+    /*flex-direction: row;*/
+    align-items: stretch;
+    /*justify-content: stretch;
+    align-content: stretch;*/
+}
+.flex-row__elem {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+
+    min-width: 0;
+    min-height: auto;
+    align-self: auto;
+
+
+    /* To make the transition work nicely.
+     (Transitions to/from "width:auto" are
+     buggy in Gecko and Webkit, at least.
+     See http://bugzil.la/731886 for more info.)
+    width: 30px;
+
+    -webkit-transition: width 0.7s ease-out;
+    transition: width 0.7s ease-out;
+
+   .flex > div:hover { width: 200px; }
+    */
+    -webkit-transition: width 0.7s ease-out;
+    transition: width 0.7s ease-out;
+ }
+
+/*TODO scss -> extends fullscreen */
+.glass {
+    position: fixed;
+    top: 0px; bottom: 0px; left: 0px; right: 0px;
+    background-color: rgba(0,0,0,0.5);
+    transition: background-color 0.4s ease-out;
+}
+.glass--hidden {
+  background-color: rgba(0,0,0,0.0);
+  transition-timing-function: ease-in;
+  pointer-events: none;
+}
+/*TODO scss -> extends fullscreen */
+.offscreenright {
+  transition: transform 0.4s ease;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 30vw; /* what's still visible of the bg */
+  right: 0vw;
+}
+.offscreenright--off {
+  transform: translateX(100%);
+}
+.offscreenright--on {
+  transform: translateX(0%);
+}
+
+.flex-right--collapsed {
+    /*flex: 0 0 0px;*/
+    /*min-width: 0px;*/
+    display: none;
+}
+.flex-right--expanded {
+    flex-basis: 40em;
+    /*min-width: 40em;*/
+    z-index: 12;
+}
+
+/* TODO oocss me */
+#offcanvas-glass { z-index: 9999999; }
+#restaurant-details {
+  overflow-y: scroll;
+  background-color: white;
+  z-index: 999999999;
+}
