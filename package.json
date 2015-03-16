@@ -25,6 +25,7 @@
     "bootsketch": "Yago/Bootsketch",
     "bootstrap": "^3.3.2",
     "leaflet": "^0.7.3",
-    "riot": "^2.0.13"
+    "riot": "^2.0.13",
+    "webpack": "^1.7.3"
   }
 }
