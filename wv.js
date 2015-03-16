@@ -23,8 +23,11 @@ var rDetails = document.getElementsByTagName('restaurant-details')[0]
 function openDetails() {
   if(rDetails) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
-    rDetails.classList.remove('right--collapsed')
-    rDetails.classList.add('right--expand')
+
+    rDetails.classList.remove('offscreenright--off');
+    rDetails.classList.add('offscreenright--on');
+    /*rDetails.classList.remove('right--collapsed')
+    rDetails.classList.add('right--expand')*/
   }
 }
 

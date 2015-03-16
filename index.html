@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/wv.css">
     <script type="riot/tag" src="restaurant_details.tag"></script>
 </head>
-<body class="flex-row fullscreen">
-    <section class="flex-row__elem">
+<body class="">
+    <section class="screen-sized">
         <input type="text"
                name="location"
                id="location"
@@ -25,7 +25,12 @@
         <div id="map" class="fill-parent"></div>
     </section>
 
-    <restaurant-details id="restaurant-details" class="flex-row__elem right--collapsed"></restaurant-details>
+    <restaurant-details
+        id="restaurant-details"
+        class="fullscreen
+               offscreenright
+               offscreenright--off">
+    </restaurant-details>
 
     <script type="text/javascript" src="wv.js"></script>
 
