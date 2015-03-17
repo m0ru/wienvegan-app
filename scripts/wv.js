@@ -23,7 +23,7 @@ L.marker([48.19803, 16.35466]).addTo(map)
 
 // TODO http://tympanus.net/Development/SidebarTransitions/
 //TODO remove global. change to tag and register listener in js
-var visibleRestaurant = {}
+global.window.visibleRestaurant = {}
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 var glass = document.getElementById('offcanvas-glass')
 global.window.openDetails  = function() {
@@ -34,7 +34,7 @@ global.window.openDetails  = function() {
     rDetails.classList.remove('offscreenright--off')
     rDetails.classList.add('offscreenright--on')
 
-    visibleRestaurant = {'name': 'Formosa Food'}
+    global.window.visibleRestaurant = {'name': 'Formosa Food'}
     riot.update() //TODO hacky (need to limit the update scope)
     // without the update the options aren't passed again
   }
@@ -45,7 +45,7 @@ global.window.closeDetails = function() {
     glass.classList.add('glass--hidden')
     rDetails.classList.add('offscreenright--off')
     rDetails.classList.remove('offscreenright--on')
-    visibleRestaurant = {}
+    global.window.visibleRestaurant = {}
   }
 }
 
