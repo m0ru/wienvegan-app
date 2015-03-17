@@ -3,7 +3,7 @@
     <h1 class="tophandle">{opts.restaurant.name}</h1>
 
     <dl>
-        <dt>Adress</dt>
+        <dt>Address</dt>
         <dd>Barnabitengasse 6, 1060 Vienna</dd>
 
         <dt>Tel</dt>
