@@ -1,3 +1,6 @@
+mock_data = require('./dummy-data')
+RestaurantStore = require('./restaurant-store')
+
 //----------------------------------------
 
 // create a map in the "map" div, set the view to a given place and zoom
@@ -19,11 +22,11 @@ L.marker([48.19803, 16.35466]).addTo(map)
 //----------------------------------------
 
 // TODO http://tympanus.net/Development/SidebarTransitions/
-
+//TODO remove global. change to tag and register listener in js
 var visibleRestaurant = {}
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 var glass = document.getElementById('offcanvas-glass')
-function openDetails() {
+global.window.openDetails  = function() {
   if(rDetails && glass) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
 
@@ -37,7 +40,7 @@ function openDetails() {
   }
 }
 
-function closeDetails() {
+global.window.closeDetails = function() {
   if(rDetails && glass) {
     glass.classList.add('glass--hidden')
     rDetails.classList.add('offscreenright--off')

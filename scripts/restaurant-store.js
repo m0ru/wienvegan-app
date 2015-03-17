@@ -1,4 +1,5 @@
 //TODO require('riot')
+module.exports = RestaurantStore
 function RestaurantStore() {
   if ( arguments.callee._singletonInstance )
     return arguments.callee._singletonInstance;

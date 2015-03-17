@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./wv.js",
+  entry: "./scripts/wv.js",
   output: {
         path: __dirname + "/bin/",
         filename: "packed.js"
@@ -8,5 +8,8 @@ module.exports = {
     loaders: [
       { test: /\.css$/, loader: "style!css"}
     ]
+  },
+  node: {
+    global: true
   }
 }

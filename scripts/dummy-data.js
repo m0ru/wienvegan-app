@@ -1,4 +1,4 @@
-var mock_data = {
+module.exports = {
   restaurants : [
     {
       "fax": "",
