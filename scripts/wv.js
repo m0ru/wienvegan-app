@@ -34,7 +34,7 @@ global.window.openDetails  = function() {
     rDetails.classList.remove('offscreenright--off')
     rDetails.classList.add('offscreenright--on')
 
-    global.window.visibleRestaurant = {'name': 'Formosa Food'}
+    global.window.visibleRestaurant = mock_data.restaurants[0] //TODO change to clicked restaurant
     riot.update() //TODO hacky (need to limit the update scope)
     // without the update the options aren't passed again
   }
