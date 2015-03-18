@@ -43,7 +43,9 @@
       if(hours) {
         //
         lines = hours.map(function(h) {
-          return '<dt>' + humanReadableWeekday[h.weekday] + '</dt>' +
+          return '<dt>' +
+            humanReadableWeekday[h.weekday] +
+            '</dt>' +
             '<dd>' + h.start + ' - ' + h.end + '</dd>'
         })
         lines = lines.reduce(function(acc, x, idx, arr) {
