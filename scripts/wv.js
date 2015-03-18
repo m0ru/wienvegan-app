@@ -1,6 +1,17 @@
 mock_data = require('./dummy-data')
 RestaurantStore = require('./restaurant-store')
 
+//require('./restaurant-details.tag')
+
+//----------------------------------------
+// Get those riot components going
+/*var tags = riot.mount('*')
+console.log('tags ', JSON.stringify(tags))*/
+
+//var tags = riot.mount('restaurant-details')
+//console.log('our tag ', JSON.stringify(tags))
+
+
 //----------------------------------------
 
 // create a map in the "map" div, set the view to a given place and zoom

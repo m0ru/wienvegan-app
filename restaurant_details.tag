@@ -1,3 +1,5 @@
+//var genHoursTemplate = require('hoursTemplate')
+
 <restaurant-details>
     <a id="detailview" class="anchor"></a>
     <h1 class="tophandle">{r.name}</h1>
@@ -27,6 +29,34 @@
     <p> Consetetur sadipscing elitr, causing scrolling behaviour, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
 
 
+
+function genHoursTemplate(hours) {
+  // TODO very hacky. find more elegant solution
+  // that works with riot templating
+  // use mustache.js? https://github.com/janl/mustache.js
+  console.log(JSON.stringify(hours))
+  var lines = ''
+  if(hours) {
+    var printedWeekDay = -1
+    //for(var i = 0; i < hours.size; i++) {
+    for(var i = 0; i < hours.length; i++) { // TODO causes "not well-formed" if it's in the .tag file
+      var h = hours[i];
+      // append each weekday only once
+      if(printedWeekDay < h.weekday) {
+        printedWeekDay = h.weekday
+        lines = lines + '\n<dt>' +
+          humanReadableWeekday[h.weekday] +
+          '</dt>\n'
+      }
+      lines = lines + '<dd>' +
+        h.start + ' - ' + h.end +
+        '</dd>\n'
+    }
+    lines = '\n<dl>\n' + lines + '\n</dl>\n'
+  }
+  return lines
+}
+
     /*window.setTimeout(function () {
       console.log(JSON.stringify(opts.restaurant))
     }, 3000)*/
@@ -34,27 +64,6 @@
     var humanReadableWeekday= ['Mon', 'Tue',
       'Wed', 'Thu', 'Fri', 'Sat', 'Son']
 
-    var genHoursTemplate = function(hours) {
-      // TODO very hacky. find more elegant solution
-      // that works with riot templating
-      // use mustache.js? https://github.com/janl/mustache.js
-      console.log(JSON.stringify(hours))
-      var lines = ''
-      if(hours) {
-        //
-        lines = hours.map(function(h) {
-          return '<dt>' +
-            humanReadableWeekday[h.weekday] +
-            '</dt>' +
-            '<dd>' + h.start + ' - ' + h.end + '</dd>'
-        })
-        lines = lines.reduce(function(acc, x, idx, arr) {
-          return acc + '\n' + x
-        })
-        lines = '\n<dl>\n' + lines + '\n</dl>\n'
-      }
-      return lines
-    }
 
     var hTag = this.hoursTag
 
