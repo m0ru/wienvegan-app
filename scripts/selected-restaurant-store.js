@@ -1,6 +1,6 @@
 //TODO require('riot')
-module.exports = RestaurantStore
-function RestaurantStore() {
+module.exports = SelectedRestaurantStore
+function SelectedRestaurantStore() {
   if ( arguments.callee._singletonInstance )
     return arguments.callee._singletonInstance;
   arguments.callee._singletonInstance = this;
@@ -9,20 +9,14 @@ function RestaurantStore() {
   riot.observable(this)
 
   var CHANGE_EVENT = 'change_event'
-  var _restaurants = {}
+  var _restaurant = {}
 
-  this.setRestaurant = function(r) {
-    _restaurants[r.id] = r;
+  this.set = function(r) {
+    _restaurant = r;
     this.emitChange()
   }
-  this.setRestaurants = function(rs) {
-    for(var i = 0; i < rs.length; i++) {
-      _restaurants[rs[i].id] = rs[i];
-    }
-    this.emitChange()
-  }
-  this.getAll = function() {
-    return _restaurants
+  this.get = function() {
+    return _restaurant
   }
   this.emitChange = function() {
     this.trigger(CHANGE_EVENT)

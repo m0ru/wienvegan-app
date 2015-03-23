@@ -1,5 +1,10 @@
 mock_data = require('./dummy-data')
 RestaurantStore = require('./restaurant-store')
+SelectedRestaurantStore = require('./selected-restaurant-store')
+
+
+var displayedRestaurant = new SelectedRestaurantStore()
+var restaurantStore = new RestaurantStore()
 
 //----------------------------------------
 
@@ -11,15 +16,11 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
-
-// add a marker in the given location, attach some popup content to it and open the popup
-L.marker([48.19803, 16.35466]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
 // Mon - Sat 11:00 ~ 21:00. Barnabitengasse 6, 1060 Vienna, Austria Tel: + 43 1 581 1112, + 43 699 1920 4294 email: shop@formosa.at
 
 //----------------------------------------
+
+
 
 // TODO http://tympanus.net/Development/SidebarTransitions/
 //TODO remove global. change to tag and register listener in js
@@ -34,9 +35,12 @@ global.window.openDetails  = function() {
     rDetails.classList.remove('offscreenright--off')
     rDetails.classList.add('offscreenright--on')
 
+
     global.window.visibleRestaurant = mock_data.restaurants[0] //TODO change to clicked restaurant
-    riot.update() //TODO hacky (need to limit the update scope)
+    //TODO hacky (need to limit the update scope)
     // without the update the options aren't passed again
+    // use displayedRestaurantStore within the .tag, to automatically update only that tag
+    riot.update()
   }
 }
 
@@ -109,13 +113,54 @@ function locateMe() {
 locateMeButton.addEventListener("click", locateMe);
 
 //global.window.locateMe();
-//----------------------------------------
 
-var rStore = new RestaurantStore()
+//restaurantStore.addChangeListener
+
+
+
+
+
+//--- restaurant-markers to map ----------
+
+
+var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
+
+// add a marker in the given location, attach some popup content to it and open the popup
+L.marker([48.19803, 16.35466]).addTo(map)
+    .bindPopup(popupText)
+    .openPopup();
+
+restaurantStore.addChangeListener(function(){
+  var restaurants = restaurantStore.getAll();
+  // console.log(JSON.stringify(restaurants))
+  for (var key in restaurants) {
+    if (restaurants.hasOwnProperty(key)) {
+      console.log(key + " -> " + restaurants[key]);
+    }
+  }
+  /*for(var i = 0; i < restaurants.length; i++) {
+    var r = restaurants[i];
+    console.log(JSON.stringify(r));
+  }*/
+});
+
+
+// TODO STOPPED HERE! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<------------------
+// via prototypical inheritance:
+// * Store
+//    * ObjectStore
+//    * ArrayStore
+// TODO leave restaurant store as object with increasing id's or as array?
+
+
+
+
+
+//----------------------------------------
 
 //TODO remove me after server-connection is implemented
 if(mock_data && mock_data.restaurants) {
-    rStore.setRestaurants(mock_data.restaurants)
+    restaurantStore.setRestaurants(mock_data.restaurants)
 }
 
 function httpGetJson(url, cb) {
