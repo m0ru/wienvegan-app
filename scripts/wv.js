@@ -69,21 +69,46 @@ global.window.closeDetails = function() {
 
 //----------------------------------------
 
-// TODO need to explicitely enable tracking for the site in chrome. not even an indicator in ff :|
-if ("geolocation" in navigator) {
-    /* geolocation is available */
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
+var locateMeButton = document.getElementById("locateMeButton");
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+var drawLocation = function(position) {
+    console.log("in navigator");
+    locateMeButton.innerHTML = "[Current Location!]"; //TODO
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
 
-        L.marker([lat, lon]).addTo(map)
-            .bindPopup('Your current position.')
-            .openPopup();
-    });
-} else {
-    /* geolocation IS NOT available */
+    L.marker([lat, lon]).addTo(map)
+        .bindPopup('Your current position.')
+        .openPopup();
+};
+var printGeolocationError = function(err) {
+  locateMeButton.innerHTML = "[Current Location!]"; //TODO
+  if(err.code == 1) {
+    alert("If you want to show your position, please try again and click 'accept'");
+  } else if( err.code == 2) {
+    alert("Position is unavailable!");
+  }
+
+};
+function locateMe() {
+  // TODO need to explicitely enable tracking for the site in chrome. not even an indicator in ff :|
+  // TODO add as 'locate-me'-icon-button next to or in the search field
+  if ("geolocation" in navigator) {
+
+    console.log("in locateMe if");
+    locateMeButton.innerHTML = "[homing in]" //TODO set spinner
+    navigator.geolocation.getCurrentPosition(drawLocation, printGeolocationError, options);
+  } else {
+      alert("Sorry, your browser does not support geolocation! ")
+  }
 }
+locateMeButton.addEventListener("click", locateMe);
 
+//global.window.locateMe();
 //----------------------------------------
 
 var rStore = new RestaurantStore()

@@ -36,8 +36,11 @@
 
     var genHoursTemplate = function(hours) {
       // TODO very hacky. find more elegant solution
-      // that works with riot templating
-      // use mustache.js? https://github.com/janl/mustache.js
+      //    that works with riot templating
+      //    use mustache.js? https://github.com/janl/mustache.js
+      // TODO if there are multiple time-slots per day (e.g. if there's a
+      //    lunch-break), the day should only show up once. E.g.
+      //    Mon: 9:00-12:00, 12:00-20:00
       console.log(JSON.stringify(hours))
       var lines = ''
       if(hours) {

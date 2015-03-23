@@ -16,12 +16,13 @@
 </head>
 <body class="">
     <section class="screen-sized">
-        <input type="text"
-               name="location"
-               id="location"
-               value=""
-               class="fixed-top"/>
-
+        <div id="location" class="fixed-top">
+          <input type="text"
+                 name="location"
+                 id="location-search"
+                 value=""/>
+          <button id="locateMeButton">[Current Location!]</button>
+        </div>
         <div id="map" class="fill-parent"></div>
     </section>
 
