@@ -135,7 +135,8 @@ restaurantStore.addChangeListener(function(){
   // console.log(JSON.stringify(restaurants))
   for (var key in restaurants) {
     if (restaurants.hasOwnProperty(key)) {
-      console.log(key + " -> " + restaurants[key]);
+      console.log(key + " -> " + JSON.stringify(restaurants[key]));
+
     }
   }
   /*for(var i = 0; i < restaurants.length; i++) {
@@ -147,20 +148,66 @@ restaurantStore.addChangeListener(function(){
 
 // TODO STOPPED HERE! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<------------------
 // via prototypical inheritance:
-// * Store
+// * (Abstract)Store
 //    * ObjectStore
 //    * ArrayStore
 // TODO leave restaurant store as object with increasing id's or as array?
+// TODO get lon/lat for all restaurants
 
 
 
 
 
 //----------------------------------------
+//
+
+/*function geocodeResponse() {
+
+    var geocodeResponse = JSON.parse(this.responseText);
+    if(geocodeResponse.length <= 0) {
+        return;
+    }
+    geocodeResponse = geocodeResponse[0];
+    
+    var lctn = [parseFloat(geocodeResponse.lat), 
+                parseFloat(geocodeResponse.lon)];
+    console.log(geocodeResponse);
+    console.log(geocodeResponse.lat);
+    console.log(geocodeResponse.lon);
+    console.log(lctn);
+        
+    // create a map in the "map" div, set the view to a given place and zoom
+    map.setView(lctn, 13);
+    
+    // add an OpenStreetMap tile layer
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // add a marker in the given location, attach some popup content to it and open the popup
+    L.marker(lctn).addTo(map)
+        .bindPopup(geocodeResponse.display_name + "<br> and more fancy html")
+        .openPopup();
+}
+
+function initialize() {
+    map = L.map('map-canvas');
+   
+}*/
+function geocordinatesNominatim(searchStr) {
+    var req = new XMLHttpRequest();
+    req.onload = function(){}; // TODO this needs to be a promise.then(..) 
+    req.open("GET", "http://nominatim.openstreetmap.org/search/" +
+        encodeURIComponent + "?format=json", true);
+    req.send();
+
+}
 
 //TODO remove me after server-connection is implemented
 if(mock_data && mock_data.restaurants) {
     restaurantStore.setRestaurants(mock_data.restaurants)
+    //TODO get lon/lat for all restaurants
+
 }
 
 function httpGetJson(url, cb) {
