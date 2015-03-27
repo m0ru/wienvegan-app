@@ -1,6 +1,7 @@
 mock_data = require('./dummy-data')
 RestaurantStore = require('./restaurant-store')
 SelectedRestaurantStore = require('./selected-restaurant-store')
+utils = require('./utils')
 
 
 var displayedRestaurant = new SelectedRestaurantStore()
@@ -135,7 +136,15 @@ map.addLayer(m);
 map.removeLayer(m);*/
 
 
+var markers = [];
 restaurantStore.addChangeListener(function(){
+  // TODO find a way to do react/riot style diffing (instead of readding a lot of markers)
+  // remove all current markers
+  for (var i = 0; i < markers.length; i++) {
+    map.removeLayer(markers[i]);
+  }
+  markers = [];
+
   var restaurants = restaurantStore.getAll();
   // console.log(JSON.stringify(restaurants))
   //TODO efficient diffing: check for new indices or updated positions or updated texts or....
@@ -167,53 +176,47 @@ restaurantStore.addChangeListener(function(){
 //----------------------------------------
 //
 
-/*function geocodeResponse() {
 
-    var geocodeResponse = JSON.parse(this.responseText);
-    if(geocodeResponse.length <= 0) {
-        return;
-    }
-    geocodeResponse = geocodeResponse[0];
-
-    var lctn = [parseFloat(geocodeResponse.lat),
-                parseFloat(geocodeResponse.lon)];
-    console.log(geocodeResponse);
-    console.log(geocodeResponse.lat);
-    console.log(geocodeResponse.lon);
-    console.log(lctn);
-
-    // create a map in the "map" div, set the view to a given place and zoom
-    map.setView(lctn, 13);
-
-    // add an OpenStreetMap tile layer
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    // add a marker in the given location, attach some popup content to it and open the popup
-    L.marker(lctn).addTo(map)
-        .bindPopup(geocodeResponse.display_name + "<br> and more fancy html")
-        .openPopup();
+global.window.testadoo = function () {
+  utils.searchNominatim("Vienna").then(function(resp) {
+    //var results = JSON.parse(resp);
+    var results = resp;
+    console.log(results[0]);
+    console.log(results[0].lat);
+    console.log(results[0].lon);
+  });
+  addLatLon(mock_data.restaurants[0]).then(function(r){
+    console.log("latP: " + r.lat);
+    console.log("lonP: " + r.lon);
+    console.log("latM: " + mock_data.restaurants[0].lat);
+    console.log("lonM: " + mock_data.restaurants[0].lon);
+  });
 }
 
-function initialize() {
-    map = L.map('map-canvas');
 
-}*/
-function geocordinatesNominatim(searchStr) {
-    var req = new XMLHttpRequest();
-    req.onload = function(){}; // TODO this needs to be a promise.then(..)
-    req.open("GET", "http://nominatim.openstreetmap.org/search/" +
-        encodeURIComponent + "?format=json", true);
-    req.send();
-
+//TODO not very pure to just append it to all objects.
+// Might lead to obscure control flow.
+// It's a hack anyway, till the restaurants come with
+// lat/lon already initialized.
+function addLatLon(restaurant) {
+    var adr = utils.austrianAddressString(restaurant);
+    //TODO counter reference will cause problems
+    return utils.searchNominatim(adr).then(function(results){
+      restaurant.lat = +results[0].lat;
+      restaurant.lon = +results[0].lon;
+      return restaurant;
+    });
 }
 
 //TODO remove me after server-connection is implemented
 if(mock_data && mock_data.restaurants) {
-    restaurantStore.setRestaurants(mock_data.restaurants)
     //TODO get lon/lat for all restaurants
+    // dispatch the requests, wait for all to resolve via .all()
+    for(var i = 0; i < mock_data.restaurants.length; i++) {
+      var r = mock_data.restaurants[i];
+    }
 
+    restaurantStore.setRestaurants(mock_data.restaurants)
 }
 
 function httpGetJson(url, cb) {
