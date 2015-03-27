@@ -122,17 +122,23 @@ locateMeButton.addEventListener("click", locateMe);
 
 //--- restaurant-markers to map ----------
 
-
 var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
 
 // add a marker in the given location, attach some popup content to it and open the popup
-L.marker([48.19803, 16.35466]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
+var m = L.marker([48.19803, 16.35466]);
+m.addTo(map).bindPopup(popupText).openPopup();
+
+//for testing
+/*global.window.map = map;
+global.window.m = L.marker([48.18798, 16.37479]);
+map.addLayer(m);
+map.removeLayer(m);*/
+
 
 restaurantStore.addChangeListener(function(){
   var restaurants = restaurantStore.getAll();
   // console.log(JSON.stringify(restaurants))
+  //TODO efficient diffing: check for new indices or updated positions or updated texts or....
   for (var key in restaurants) {
     if (restaurants.hasOwnProperty(key)) {
       console.log(key + " -> " + JSON.stringify(restaurants[key]));
@@ -168,22 +174,22 @@ restaurantStore.addChangeListener(function(){
         return;
     }
     geocodeResponse = geocodeResponse[0];
-    
-    var lctn = [parseFloat(geocodeResponse.lat), 
+
+    var lctn = [parseFloat(geocodeResponse.lat),
                 parseFloat(geocodeResponse.lon)];
     console.log(geocodeResponse);
     console.log(geocodeResponse.lat);
     console.log(geocodeResponse.lon);
     console.log(lctn);
-        
+
     // create a map in the "map" div, set the view to a given place and zoom
     map.setView(lctn, 13);
-    
+
     // add an OpenStreetMap tile layer
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    
+
     // add a marker in the given location, attach some popup content to it and open the popup
     L.marker(lctn).addTo(map)
         .bindPopup(geocodeResponse.display_name + "<br> and more fancy html")
@@ -192,11 +198,11 @@ restaurantStore.addChangeListener(function(){
 
 function initialize() {
     map = L.map('map-canvas');
-   
+
 }*/
 function geocordinatesNominatim(searchStr) {
     var req = new XMLHttpRequest();
-    req.onload = function(){}; // TODO this needs to be a promise.then(..) 
+    req.onload = function(){}; // TODO this needs to be a promise.then(..)
     req.open("GET", "http://nominatim.openstreetmap.org/search/" +
         encodeURIComponent + "?format=json", true);
     req.send();
