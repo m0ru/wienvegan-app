@@ -219,6 +219,7 @@ if(mock_data && mock_data.restaurants) {
     restaurantStore.setRestaurants(mock_data.restaurants)
 }
 
+//TODO move to utils and change to use promises
 function httpGetJson(url, cb) {
     var req = new XMLHttpRequest();
     req.open("GET", url, true);
