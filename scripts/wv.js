@@ -123,18 +123,10 @@ locateMeButton.addEventListener("click", locateMe);
 
 //--- restaurant-markers to map ----------
 
-var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>Formosa Food</strong><br>Asian, International, Shop</a>'
 
 // add a marker in the given location, attach some popup content to it and open the popup
-var m = L.marker([48.19803, 16.35466]);
-m.addTo(map).bindPopup(popupText).openPopup();
-
-//for testing
-/*global.window.map = map;
-global.window.m = L.marker([48.18798, 16.37479]);
-map.addLayer(m);
-map.removeLayer(m);*/
-
+/*var m = L.marker([48.19803, 16.35466]);
+m.addTo(map).bindPopup(popupText).openPopup();*/
 
 var markers = [];
 restaurantStore.addChangeListener(function(){
@@ -150,8 +142,15 @@ restaurantStore.addChangeListener(function(){
   //TODO efficient diffing: check for new indices or updated positions or updated texts or....
   for (var key in restaurants) {
     if (restaurants.hasOwnProperty(key)) {
-      console.log(key + " -> " + JSON.stringify(restaurants[key]));
-
+      var r = restaurants[key];
+      console.log(key + " -> " + JSON.stringify(r));
+      var m = L.marker([r.lat, r.lon]);
+      var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>' +
+        r.name + '</strong><br>Asian, International, Shop</a>'
+      m.bindPopup(popupText);
+      //m.addTo(map).bindPopup(popupText).openPopup();
+      markers.push(m);
+      map.addLayer(m);
     }
   }
   /*for(var i = 0; i < restaurants.length; i++) {
