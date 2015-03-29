@@ -28,22 +28,24 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 global.window.visibleRestaurant = {}
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 var glass = document.getElementById('offcanvas-glass')
-global.window.openDetails  = function(restaurantId) {
+global.window.selectRestaurant = function(restaurantId) {
+    //TODO use currentRestaurantStore instead
+    global.window.visibleRestaurant =  restaurants = restaurantStore.getAll()[restaurantId];
+
+    //TODO hacky (need to limit the update scope)
+    // without the update the options aren't passed again
+    // use displayedRestaurantStore within the .tag, to automatically update only that tag
+    riot.update();
+
+    global.window.openDetails();
+}
+global.window.openDetails  = function() {
   if(rDetails && glass) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
 
     glass.classList.remove('glass--hidden')
     rDetails.classList.remove('offscreenright--off')
     rDetails.classList.add('offscreenright--on')
-
-
-
-    //global.window.visibleRestaurant = mock_data.restaurants[0] //TODO change to clicked restaurant
-    global.window.visibleRestaurant = restaurants = restaurantStore.getAll()[restaurantId];
-    //TODO hacky (need to limit the update scope)
-    // without the update the options aren't passed again
-    // use displayedRestaurantStore within the .tag, to automatically update only that tag
-    riot.update()
   }
 }
 
@@ -135,7 +137,7 @@ restaurantStore.addChangeListener(function(){
       var r = restaurants[key];
       console.log(key + " -> " + JSON.stringify(r));
       var m = L.marker([r.lat, r.lon]);
-      var popupText = '<a onclick="openDetails(' + key + ')" href="javascript:void(0)"><strong>' +
+      var popupText = '<a onclick="selectRestaurant(' + key + ')" href="javascript:void(0)"><strong>' +
         r.name  + '</strong></a>'
       m.bindPopup(popupText);
       //m.addTo(map).bindPopup(popupText).openPopup();
