@@ -178,19 +178,19 @@ restaurantStore.addChangeListener(function(){
 
 
 global.window.testadoo = function () {
-  utils.searchNominatim("Vienna").then(function(resp) {
+  /*utils.searchNominatim("Vienna").then(function(resp) {
     //var results = JSON.parse(resp);
     var results = resp;
     console.log(results[0]);
     console.log(results[0].lat);
     console.log(results[0].lon);
   });
-  addLatLon(mock_data.restaurants[0]).then(function(r){
-    console.log("latP: " + r.lat);
-    console.log("lonP: " + r.lon);
-    console.log("latM: " + mock_data.restaurants[0].lat);
-    console.log("lonM: " + mock_data.restaurants[0].lon);
-  });
+  */
+  for(var i = 0; i < mock_data.restaurants.length; i++) {
+    addLatLon(mock_data.restaurants[i]).then(function(r){
+      console.log( r.name + " = " + "latP: " + r.lat, "lonP: " + r.lon);
+    });
+  }
 }
 
 
@@ -212,11 +212,33 @@ function addLatLon(restaurant) {
 if(mock_data && mock_data.restaurants) {
     //TODO get lon/lat for all restaurants
     // dispatch the requests, wait for all to resolve via .all()
+
+    /*var requests = [];
     for(var i = 0; i < mock_data.restaurants.length; i++) {
       var r = mock_data.restaurants[i];
-    }
+      requests[i] = addLatLon(r);
+    }*/
 
-    restaurantStore.setRestaurants(mock_data.restaurants)
+    //polyfill for Array.prototype.map:
+    //https://developer.mozilla.org/en-US/docs/Web/
+    //  JavaScript/Reference/Global_Objects/Array/map#Polyfill
+    var requests = mock_data.restaurants.map(addLatLon);
+    Promise.all(requests).then(
+      function(updatedRestaurants) {
+        // all have lat/lon now
+        restaurantStore.setRestaurants(mock_data.restaurants);
+      },
+      function(err) {
+        // TODO hack
+        // TODO the better behaviour would be to only add
+        //   those that worked (but client side lat/lon is a
+        //   quick-fix anyway, so whatever)
+
+        // one or more failed
+        restaurantStore.setRestaurants(mock_data.restaurants);
+        console.error("Add least one restaurant doesn't have latitude / longtitude as the address resolution service could not be reached. " + err);
+      }
+    )
 }
 
 //TODO move to utils and change to use promises

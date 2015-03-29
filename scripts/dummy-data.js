@@ -4,7 +4,7 @@ module.exports = {
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
         {
           "start": "08:30:00",
@@ -71,13 +71,15 @@ module.exports = {
       "city": "Wien",
       "name": "Loving Hut",
       "country": "Austria",
-      "email": ""
+      "email": "",
+      "lat" : 48.2027262,
+      "lon": 16.3368994
     },
     {
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
         {
           "start": "09:00:00",
@@ -115,13 +117,15 @@ module.exports = {
       "city": "Wien",
       "name": "Vegetarisches Formosa Food",
       "country": "Austria",
-      "email": ""
+      "email": "",
+      "lat" : 48.198155,
+      "lon" : 16.3541643
     },
     {
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
         {
           "start": "10:30:00",
@@ -154,13 +158,15 @@ module.exports = {
       "city": "Wien",
       "name": "Pizzeria Fiore",
       "country": "Austria",
-      "email": ""
+      "email": "",
+      "lat" : 48.1986951,
+      "lon" : 16.3410059
     },
-    {
+    /*{
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
 
       ],
@@ -175,12 +181,12 @@ module.exports = {
       "name": "Pizzeria Casa Piccola",
       "country": "Austria",
       "email": ""
-    },
-    {
+    },*/
+    /*{
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
 
       ],
@@ -195,12 +201,12 @@ module.exports = {
       "name": "Curry Up",
       "country": "Austria",
       "email": ""
-    },
+    },*/
     {
       "fax": "",
       "description": "",
       "phone2": "",
-      "number": "9999",
+      "number": "1",
       "hours": [
 
       ],
@@ -214,7 +220,9 @@ module.exports = {
       "city": "Wien",
       "name": "Fein essen",
       "country": "Austria",
-      "email": ""
+      "email": "",
+      "lat" : 48.1920074,
+      "lon" : 16.3671143
     }
   ]
 }
