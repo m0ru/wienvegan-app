@@ -43,7 +43,7 @@
       //    Mon: 9:00-12:00, 12:00-20:00
       console.log(JSON.stringify(hours))
       var lines = ''
-      if(hours) {
+      if(hours && hours.length > 0) {
         //
         lines = hours.map(function(h) {
           return '<dt>' +

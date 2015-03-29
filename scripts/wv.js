@@ -28,7 +28,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 global.window.visibleRestaurant = {}
 var rDetails = document.getElementsByTagName('restaurant-details')[0]
 var glass = document.getElementById('offcanvas-glass')
-global.window.openDetails  = function() {
+global.window.openDetails  = function(restaurantId) {
   if(rDetails && glass) {
     /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
 
@@ -37,7 +37,9 @@ global.window.openDetails  = function() {
     rDetails.classList.add('offscreenright--on')
 
 
-    global.window.visibleRestaurant = mock_data.restaurants[0] //TODO change to clicked restaurant
+
+    //global.window.visibleRestaurant = mock_data.restaurants[0] //TODO change to clicked restaurant
+    global.window.visibleRestaurant = restaurants = restaurantStore.getAll()[restaurantId];
     //TODO hacky (need to limit the update scope)
     // without the update the options aren't passed again
     // use displayedRestaurantStore within the .tag, to automatically update only that tag
@@ -113,20 +115,8 @@ function locateMe() {
 }
 locateMeButton.addEventListener("click", locateMe);
 
-//global.window.locateMe();
-
-//restaurantStore.addChangeListener
-
-
-
-
 
 //--- restaurant-markers to map ----------
-
-
-// add a marker in the given location, attach some popup content to it and open the popup
-/*var m = L.marker([48.19803, 16.35466]);
-m.addTo(map).bindPopup(popupText).openPopup();*/
 
 var markers = [];
 restaurantStore.addChangeListener(function(){
@@ -145,18 +135,14 @@ restaurantStore.addChangeListener(function(){
       var r = restaurants[key];
       console.log(key + " -> " + JSON.stringify(r));
       var m = L.marker([r.lat, r.lon]);
-      var popupText = '<a onclick="openDetails()" href="javascript:void(0)"><strong>' +
-        r.name + '</strong><br>Asian, International, Shop</a>'
+      var popupText = '<a onclick="openDetails(' + key + ')" href="javascript:void(0)"><strong>' +
+        r.name  + '</strong></a>'
       m.bindPopup(popupText);
       //m.addTo(map).bindPopup(popupText).openPopup();
       markers.push(m);
       map.addLayer(m);
     }
   }
-  /*for(var i = 0; i < restaurants.length; i++) {
-    var r = restaurants[i];
-    console.log(JSON.stringify(r));
-  }*/
 });
 
 
@@ -166,32 +152,8 @@ restaurantStore.addChangeListener(function(){
 //    * ObjectStore
 //    * ArrayStore
 // TODO leave restaurant store as object with increasing id's or as array?
-// TODO get lon/lat for all restaurants
-
-
-
-
 
 //----------------------------------------
-//
-
-
-global.window.testadoo = function () {
-  /*utils.searchNominatim("Vienna").then(function(resp) {
-    //var results = JSON.parse(resp);
-    var results = resp;
-    console.log(results[0]);
-    console.log(results[0].lat);
-    console.log(results[0].lon);
-  });
-  */
-  for(var i = 0; i < mock_data.restaurants.length; i++) {
-    addLatLon(mock_data.restaurants[i]).then(function(r){
-      console.log( r.name + " = " + "latP: " + r.lat, "lonP: " + r.lon);
-    });
-  }
-}
-
 
 //TODO not very pure to just append it to all objects.
 // Might lead to obscure control flow.
