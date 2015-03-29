@@ -4,7 +4,7 @@
 
     <dl>
         <dt>Address</dt>
-        <dd>{r.street} {r.number}, {r.postcode} {r.city}, {r.Austria}</dd>
+        <dd>{r.street} {r.number}, {r.postcode} {r.city}, {r.country}</dd>
 
         <dt>Tel</dt>
         <dd>+ 43 1 581 1112</dd>
