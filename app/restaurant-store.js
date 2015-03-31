@@ -1,4 +1,6 @@
 var riot = require('riot');
+var actions = new (require('./actions.js'))();
+
 module.exports = RestaurantStore
 function RestaurantStore() {
   if ( arguments.callee._singletonInstance )
@@ -20,6 +22,9 @@ function RestaurantStore() {
       _restaurants[rs[i].id] = rs[i];
     }
     this.emitChange()
+  }
+  this.get = function(restaurantId) {
+    return _restaurants[restaurantId];
   }
   this.getAll = function() {
     return _restaurants

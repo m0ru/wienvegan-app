@@ -5,37 +5,16 @@
     <title>Wien Vegan</title>
 
     <!--leaflet.js provides us with a map-widget which can display map material from different sources-->
-    <!--<script type="text/javascript" src="../node_modules/leaflet/dist/leaflet.js"></script>-->
     <link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css"/>
 
   <!--  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.css">-->
 
     <link rel="stylesheet" href="wv.css">
-    <script type="riot/tag" src="./restaurant_details.tag"></script>
+    <!--<script type="riot/tag" src="./app/restaurant_details.tag"></script>-->
 </head>
 <body class="">
     <app></app>
-    <section class="screen-sized">
-        <div id="location" class="fixed-top">
-          <input type="text"
-                 name="location"
-                 id="location-search"
-                 value=""/>
-          <button id="locateMeButton">[Current Location!]</button>
-        </div>
-        <!--<div id="map" class="fill-parent"></div>-->
-        <leaflet></leaflet>
-    </section>
-
-    <div id='offcanvas-glass' class="glass fullscreen glass--hidden" onclick='closeDetails()'></div>
-
-    <restaurant-details
-        id="restaurant-details"
-        restaurant="{visibleRestaurant}"
-        class="offscreenright
-               offscreenright--off">
-    </restaurant-details>
 
     <!--<script src="node_modules/riot/riot+compiler.js"></script>-->
 

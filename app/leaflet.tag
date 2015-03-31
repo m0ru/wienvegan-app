@@ -59,7 +59,7 @@ RestaurantStore = require('./restaurant-store')
           r.name  + '</strong></a>'
         m.bindPopup(popupText);
         markers.push(m);
-        //map.addLayer(m);
+        //map.addLayer(m); //TODO map is undefined
       }
     }
   });

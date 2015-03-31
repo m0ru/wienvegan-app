@@ -116,8 +116,8 @@ body {
 }
 
 /* TODO oocss me */
-#offcanvas-glass { z-index: 9999999; }
-#restaurant-details {
+#glass { z-index: 9999999; }
+#rdetails {
   overflow-y: scroll;
   background-color: white;
   z-index: 999999999;
