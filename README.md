@@ -19,4 +19,4 @@ To automatically generate the packed js:
 If you want to run a webserver as well instead run:
 
 
-  ./node_modules/.bin/webpack-dev-server --inline --hot
+  ./node_modules/webpack-dev-server/bin/webpack-dev-server --inline --hot
