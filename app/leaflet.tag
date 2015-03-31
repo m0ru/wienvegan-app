@@ -1,8 +1,13 @@
 require('leaflet');
 RestaurantStore = require('./restaurant-store')
+SelectedRestaurantStore = require('./selected-restaurant-store')
 
 <leaflet>
   <div id="mapcanvas" class="fill-parent"></div>
+
+  // TODO move somewhere else?
+  // Leaflet + Webpack/Browserify fix:
+  L.Icon.Default.imagePath = '../node_modules/leaflet/dist/images/';
 
   this.on('mount', function() {
     // create a map in the "map" div, set the view to a given place and zoom
@@ -32,11 +37,21 @@ RestaurantStore = require('./restaurant-store')
     */
 
   //--- restaurant-markers to map ----------
+  var selectedRestaurantStore = new SelectedRestaurantStore();
+  selectedRestaurantStore.addChangeListener(function(){
+    console.log('leaflet.tag is updating');
+    this.update();
+  }.bind(this));
+
+  var selectRestaurant = function(id) {
+    actions.trigger(actions.RESTAURANT_SELECTED, id);
+  }
+
   var restaurantStore = new RestaurantStore()
   var markers = [];
   this.on('update', function() {
     //console.log("MAAAAP", map);
-    console.log(this);
+    console.log("this", this);
     console.log("MAAAAPC", this.mapcanvas);
     console.log("MAAAAP", this.map);
     // TODO find a way to do react/riot style diffing (instead of readding a lot of markers)
@@ -59,7 +74,6 @@ RestaurantStore = require('./restaurant-store')
           r.name  + '</strong></a>'
         m.bindPopup(popupText);
         markers.push(m);
-        //map.addLayer(m); //TODO map is undefined
       }
     }
   });

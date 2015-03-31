@@ -38,4 +38,11 @@ var actions = new (require('./actions.js'))();
       this.rdetails.classList.remove('offscreenright--off')
       this.rdetails.classList.add('offscreenright--on')
   }.bind(this));
+
+  this.glass.addEventListener('click', function() {
+    //console.log('this click', this);
+    this.glass.classList.add('glass--hidden')
+    this.rdetails.classList.add('offscreenright--off')
+    this.rdetails.classList.remove('offscreenright--on')
+  }.bind(this));
 </app>

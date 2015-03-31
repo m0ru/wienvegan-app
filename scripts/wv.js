@@ -25,15 +25,6 @@ global.window.selectRestaurant = function(restaurantId) {
 
     global.window.openDetails();
 }
-global.window.openDetails  = function() {
-  if(rDetails && glass) {
-    /* TODO trigger reflow of map (it recenters when the viewport-width changes!)*/
-
-    glass.classList.remove('glass--hidden')
-    rDetails.classList.remove('offscreenright--off')
-    rDetails.classList.add('offscreenright--on')
-  }
-}
 
 global.window.closeDetails = function() {
   if(rDetails && glass) {

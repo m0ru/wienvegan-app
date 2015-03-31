@@ -1,18 +1,21 @@
 require('./app.tag');
-//var cstmleaflet = require('./cstmleaflet.js');
-var actions = new (require('./actions.js'))();
-global.window.actions = actions; //TODO deletme; for testing
-//require('../node_modules/leaflet/dist/leaflet.css');
-//require('../node_modules/riot/riot+compiler.js');
-//var riot = require('riot');
+var riot = require('riot');
 utils = require('./utils')
 mock_data = require('./dummy-data')
 RestaurantStore = require('./restaurant-store')
 
+
+var actions = new (require('./actions.js'))();
+global.window.actions = actions; //TODO deletme; for testing
+global.window.riot = riot; //TODO deletme; for testing
+
+//require('../node_modules/leaflet/dist/leaflet.css');
+//require('../node_modules/riot/riot+compiler.js');
+//var riot = require('riot');
+
 SelectedRestaurantStore = require('./selected-restaurant-store')//TODO DELETME; for testing
 global.window.selectedRestaurantStore = new SelectedRestaurantStore();
 
-var riot = require('riot');
 
 riot.mount('*');
 
