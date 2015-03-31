@@ -10,4 +10,4 @@
 module.exports = function() {
   if ( arguments.callee._singletonInstance )
     return arguments.callee._singletonInstance;
-  arguments.callee._singletonInstance = this;  // Make instances observable  riot.observable(this);  this.RESTAURANT_SELECTED = "restaurant-selected";  //TODO can these be passed a payload?}
+  arguments.callee._singletonInstance = this;  // Make instances observable  riot.observable(this);  this.RESTAURANT_SELECTED = "restaurant-selected";  //TODO Use a proper dispatcher (e.g. fb-flux is only 10kB)}

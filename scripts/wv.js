@@ -5,35 +5,6 @@ SelectedRestaurantStore = require('./selected-restaurant-store')
 utils = require('./utils')
 
 
-var displayedRestaurant = new SelectedRestaurantStore()
-var restaurantStore = new RestaurantStore()
-
-
-// TODO http://tympanus.net/Development/SidebarTransitions/
-//TODO remove global. change to tag and register listener in js
-global.window.visibleRestaurant = {}
-var rDetails = document.getElementsByTagName('restaurant-details')[0]
-var glass = document.getElementById('offcanvas-glass')
-global.window.selectRestaurant = function(restaurantId) {
-    //TODO use currentRestaurantStore instead
-    global.window.visibleRestaurant =  restaurants = restaurantStore.getAll()[restaurantId];
-
-    //TODO hacky (need to limit the update scope)
-    // without the update the options aren't passed again
-    // use displayedRestaurantStore within the .tag, to automatically update only that tag
-    riot.update();
-
-    global.window.openDetails();
-}
-
-global.window.closeDetails = function() {
-  if(rDetails && glass) {
-    glass.classList.add('glass--hidden')
-    rDetails.classList.add('offscreenright--off')
-    rDetails.classList.remove('offscreenright--on')
-    global.window.visibleRestaurant = {}
-  }
-}
 
 
 var locateMeButton = document.getElementById("locateMeButton");

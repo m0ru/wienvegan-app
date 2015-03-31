@@ -24,8 +24,6 @@ var actions = new (require('./actions.js'))();
              offscreenright--off">
   </restaurant-details>
 
-
-
   actions.on(actions.RESTAURANT_SELECTED,
     function(restaurantId) {
       /* TODO trigger reflow of map (it should recenter when the viewport-width changes!)*/
