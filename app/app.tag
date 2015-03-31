@@ -1,12 +1,8 @@
-require('./name.tag');
 require('./leaflet.tag');
 require('./restaurant-details.tag');
 var actions = new (require('./actions.js'))();
 
 <app>
-  <name first="Hello" last="World"></name>
-  <name first="Ola" last="Mundo"></name>
-
   <section class="screen-sized">
       <div id="location" class="fixed-top">
         <input type="text"
@@ -19,7 +15,7 @@ var actions = new (require('./actions.js'))();
       <leaflet></leaflet>
   </section>
 
-  <div id='glass' class="glass fullscreen glass--hidden" onclick='closeDetails()'></div>
+  <div id='glass' class="glass fullscreen glass--hidden"></div>
 
   <restaurant-details
       id="rdetails"
@@ -39,6 +35,7 @@ var actions = new (require('./actions.js'))();
       this.rdetails.classList.add('offscreenright--on')
   }.bind(this));
 
+  //TODO this is quick & dirty. should be toggle in template & rerender? maybe make glass into a tag?
   this.glass.addEventListener('click', function() {
     //console.log('this click', this);
     this.glass.classList.add('glass--hidden')

@@ -48,3 +48,5 @@ global.window.testadoo = function () {
   console.log("nr of restaurants: " + restaurantStore.getAll().length);
 
 }
+
+riot.update(); // TODO this should not be necessary, but the markers won't appear otherwise
