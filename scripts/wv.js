@@ -1,3 +1,4 @@
+var riot = require('riot');
 mock_data = require('./dummy-data')
 RestaurantStore = require('./restaurant-store')
 SelectedRestaurantStore = require('./selected-restaurant-store')

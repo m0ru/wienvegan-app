@@ -1,4 +1,4 @@
-//TODO require('riot')
+var riot = require('riot');
 module.exports = SelectedRestaurantStore
 function SelectedRestaurantStore() {
   if ( arguments.callee._singletonInstance )
