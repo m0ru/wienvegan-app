@@ -1,17 +1,20 @@
 require('./leaflet.tag');
 require('./restaurant-details.tag');
+require('./location-search.tag');
 var actions = new (require('./actions.js'))();
 
 <app>
   <section class="screen-sized">
-      <div id="location" class="fixed-top">
+      <!--<div id="location" class="fixed-top">
         <input type="text"
                name="location"
                id="location-search"
                value=""/>
         <button id="locateMeButton">[Current Location!]</button>
-      </div>
+      </div>-->
+      <location-search></location-search>
       <!--<div id="map" class="fill-parent"></div>-->
+      <!--TODO rename tag to include dash -->
       <leaflet></leaflet>
   </section>
 
